@@ -1,6 +1,6 @@
 import db from "./db.js"
-export const createPin = (password) => {
-    return db.set(password, password)
+export const createPin = (password, user) => {
+    return db.set(password, user)
 
 }
 export const getPins = () => {
