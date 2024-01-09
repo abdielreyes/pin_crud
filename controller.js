@@ -20,6 +20,9 @@ export const validatePin = (password) => {
   }
   return false;
 };
+export const getUser = (pin) => {
+  return db.get(pin);
+};
 export const deleteDb = () => {
   return db.deleteAll();
 };

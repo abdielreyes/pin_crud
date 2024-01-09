@@ -5,6 +5,7 @@ import {
   validatePin,
   deletePin,
   deletePins,
+  getUser,
 } from "./controller.js";
 const router = express.Router();
 
@@ -18,6 +19,14 @@ router.get("/get_pins", (req, res) => {
     pins.push(`${e.key} ${e.value}`);
   });
   res.send(pins);
+});
+router.get("/get_user", (req, res) => {
+  const { pin } = req.query;
+  if (pin) {
+    const p = getUser(pin);
+    return res.send(p);
+  }
+  return res.send("Favor de enviar un pin.");
 });
 router.get("/delete_pins", (req, res) => {
   deletePins();
@@ -42,7 +51,8 @@ router.get("/validate_pin", (req, res) => {
   const { pin } = req.query;
   if (pin) {
     if (validatePin(pin)) {
-      return res.send(true);
+      const u = getUser(pin);
+      return res.send(u);
     }
   }
   return res.send(false);
