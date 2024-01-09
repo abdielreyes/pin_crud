@@ -1,23 +1,25 @@
-import db from "./db.js"
+import db from "./db.js";
 export const createPin = (password, user) => {
-    return db.set(password, user)
-
-}
+  return db.set(password, user);
+};
 export const getPins = () => {
-    const res = db.getAll()
-    console.log(res)
-    return res
-}
+  const res = db.getAll();
+  console.log(res);
+  return res;
+};
+export const deletePins = () => {
+  db.deleteAll();
+};
 export const deletePin = (password) => {
-    db.delete(password)
-}
+  db.delete(password);
+};
 export const validatePin = (password) => {
-    const pass = db.has(password)
-    if (pass) {
-        return true
-    }
-    return false
-}
+  const pass = db.has(password);
+  if (pass) {
+    return true;
+  }
+  return false;
+};
 export const deleteDb = () => {
-    return db.deleteAll()
-}
+  return db.deleteAll();
+};

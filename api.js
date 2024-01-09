@@ -1,46 +1,51 @@
-import express from "express"
-import { createPin, getPins, validatePin, deletePin } from "./controller.js"
-const router = express.Router()
+import express from "express";
+import {
+  createPin,
+  getPins,
+  validatePin,
+  deletePin,
+  deletePins,
+} from "./controller.js";
+const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.json("Hello World")
-})
+  res.send("Hello World");
+});
 router.get("/get_pins", (req, res) => {
-    const passwordsArray = getPins()
-    const passwords = []
-    passwordsArray.forEach(e => {
-        passwords.push(e.value)
-    })
-    res.json(passwords)
-})
+  const pinsArray = getPins();
+  const pins = [];
+  pinsArray.forEach((e) => {
+    pins.push(`${e.key} ${e.value}`);
+  });
+  res.send(pins);
+});
+router.get("/delete_pins", (req, res) => {
+  deletePins();
+  res.send("Base de datos eliminada");
+});
 router.get("/create_pin", (req, res) => {
-    const { user, password } = req.query
-    if (password) {
-        createPin(password, user)
-        res.json("PIN creado")
-    }
-
-})
+  const { user, pin } = req.query;
+  if (pin) {
+    createPin(pin, user);
+    res.send("PIN creado");
+  }
+});
 router.get("/delete_pin", (req, res) => {
-    const { password } = req.query
-    if (password) {
-        deletePin(password)
-        return res.send("PIN eliminado")
-
-    }
-    return res.send("Error")
-})
+  const { pin } = req.query;
+  if (pin) {
+    deletePin(pin);
+    return res.send("PIN eliminado");
+  }
+  return res.send("Error");
+});
 router.get("/validate_pin", (req, res) => {
-    const { password } = req.query
-    if (password) {
-        if (validatePin(password)) {
-            return res.send(true)
-        }
+  const { pin } = req.query;
+  if (pin) {
+    if (validatePin(pin)) {
+      return res.send(true);
     }
-    return res.send(false)
-})
+  }
+  return res.send(false);
+});
 
-
-
-
-export default router
+export default router;
