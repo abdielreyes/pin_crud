@@ -14,9 +14,9 @@ router.get("/get_pins", (req, res) => {
     res.json(passwords)
 })
 router.get("/create_pin", (req, res) => {
-    const { password } = req.query
+    const { user, password } = req.query
     if (password) {
-        createPin(password)
+        createPin(password, user)
         res.json("PIN creado")
     }
 
